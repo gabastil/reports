@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<emr>
+	<section name="HPI" full="history of present illness">
+		<content text="The patient, Mrs. Fields, is a 49 year old female who came into the ER complaining of SOB and pain in her chest. \nShe has had an MI about two years ago and does know if she has ever been diagnosed with angina."/>
+	</section>
+	<section name="PMH" full="past medical history">
+	</section>
+	<section name="DX" full="diagnosis">
+	</section>
+</emr>
