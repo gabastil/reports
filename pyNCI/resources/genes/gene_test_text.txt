@@ -1,0 +1,1 @@
+This is a test report about the BRAF gene that the patient shows mutations of. There is a B-Raf1 mutation in the patient's genetic profile and not a v-Raf one. This document is to test how the parser finds serine/threonine kinase enzymes in this document.

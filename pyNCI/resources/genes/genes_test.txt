@@ -1,0 +1,3 @@
+gene	variants	related drugs	amino acids	regex
+BRAF	B Rapidly Accelerated Fibrosarcoma; B-Rapidly Accelerated Fibrosarcoma; B-Raf; v-Raf; vRaf; B-RAF1; BRAF1; NS7; RAFB1; serine/threonine kinase	vemurafenib; zelboraf; dabrafenib; tafinlar	766	(B|v)-?(RAF|Rapidly Accelerated Fibrosarcoma)\d?|NS7|serine\wthreonine( kinases?)|766-?amino( acids?)|(vemura|dabra)fenib|zelboraf|tafinlar
+Ki67	KI-67; MKI67; KIA; MIB-; MIB-1; PPP1R105			M?KI-?(67|A)|MIB-?1?|PPP1R105
