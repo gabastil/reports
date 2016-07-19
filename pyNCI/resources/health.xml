@@ -1,10 +1,6 @@
 <?xml version="1.0"?>
 <emr>
-	<section name="HPI" full="history of present illness">
-		<content text="The patient, Mrs. Fields, is a 49 year old female who came into the ER complaining of SOB and pain in her chest. \nShe has had an MI about two years ago and does know if she has ever been diagnosed with angina."/>
-	</section>
-	<section name="PMH" full="past medical history">
-	</section>
-	<section name="DX" full="diagnosis">
-	</section>
+	<section name="HPI" full="history of present illness" text="The patient, Mrs. Fields, is a 49 year old female who came into the ER complaining of SOB and pain in her chest.\nShe has had an MI about two years ago and does know if she has ever been diagnosed with angina."/>
+	<section name="PMH" full="past medical history" text="The patient had an MI two years ago and has a family history of heart disease.\nHer father died of an MI about 15 years ago."/>
+	<section name="DX" full="diagnosis" text="Mrs. Fields suffers from Prinzmetal's Angina."/>
 </emr>

@@ -22,9 +22,30 @@ from the Spreadsheet class.
 import os, sys, re
 sys.path.append("..")
 from pyDocs.Spreadsheet import Spreadsheet
-#print os.getcwd()
 
 class Genes(object):
+
+	"""
+		To use the Genes Class, specify a tab-delimited text file upon object
+		construction. The tab-delimited text file could be suffixed by the gene
+		extension (*.gene) to distinguish it from other text files.
+
+		The default initialization extracts regular expressions from the .gene
+		file but this can be changed by changing the 'regex' parameter to False
+		upon instantiation. 
+
+		Retrieve the appropriate regular expressions by using the get-methods
+		associated with the type of regular expression desired. 
+
+		getGene() retrieves all regular expressions (variants, amino acid name(s), and
+		related drugs).
+
+		getDrugs() retrieves regular expressions from the 'related drugs' column
+		in the *.gene document.
+
+		getAmino() retrieves regular expressions from the 'amino acid' column in
+		the *.gene document.
+	"""
 
 	def __init__(self, filePath="resources\\genes\\genes_test.txt", regex=True):
 		""" initalize class 
@@ -42,11 +63,11 @@ class Genes(object):
 		self.drugs = dict()
 		self.amino = dict()
 
+		re_compile = re.compile
+
 		# If regex parameter is True, store the regex column
 		if regex:
 			gene_regexes = genes_spreadsheet.getColumn("regex")
-
-			re_compile = re.compile
 
 			# Loop through the gene names and add an entry for each name (variant names are assigned regexes as well)
 			for i in xrange(len(gene_names)):
@@ -76,11 +97,10 @@ class Genes(object):
 				amino 	 = ["{}-amino acid".format(amino_acid) for amino_acid in gene_aminos[i].split("; ") if len(amino_acid) > 0]
 
 				literal = r"({})|({})|({})".format(variants, drugs, "|".join(amino))
-				literal = re.compile(literal)
+				literal = re_compile(literal)
 
 				gene_drug  = re_compile(drugs)
 				gene_amino = re_compile("|".join(amino))
-
 
 				self.genes[gene_names[i]] = literal
 				self.drugs[gene_names[i]] = gene_drug
@@ -92,26 +112,38 @@ class Genes(object):
 					self.drugs[variant] = gene_drug
 					self.amino[variant] = gene_amino
 
-	def getGene(self, gene):
+	def getGene(self, gene, regex=True):
 		""" return regular expression for specified gene
 			@param	gene: gene or variant name
+			@param	regex: return a regular expression object if True,
+					otherwise, return String
 		"""
-		return self.genes[gene]
+		if regex:
+			return self.genes[gene]
+		return self.genes[gene].pattern
 
-	def getDrugs(self, gene):
+	def getDrugs(self, gene, regex=True):
 		""" return regular expression for drugs associated with specified gene
 			@param	gene: gene or variant name
+			@param	regex: return a regular expression object if True,
+					otherwise, return String
 		"""
-		return self.drugs[gene]
+		if regex:
+			return self.drugs[gene]
+		return self.drugs[gene].pattern
 
-	def getAmino(self, gene):
+	def getAmino(self, gene, regex=True):
 		""" return regular expression for amino acids associated with specified gene
 			@param	gene: gene or variant name
+			@param	regex: return a regular expression object if True,
+					otherwise, return String
 		"""
-		return self.amino[gene]
+		if regex:
+			return self.amino[gene]
+		return self.amino[gene].pattern
 
 if __name__=="__main__":
 	g = Genes(regex=1)
 	print g.getGene("v-Raf")
-	print g.getDrugs("v-Raf").pattern
-	print g.getAmino("v-Raf").pattern
+	print g.getDrugs("v-Raf")
+	print g.getAmino("v-Raf")
