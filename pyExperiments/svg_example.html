@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+	<STYLE type="text/css">
+		body{
+			transitions: 3s;
+		}
+
+		.div_main{
+			background-color: yellow;
+			height: 30em;
+			width: 40em;
+			margin: 0 auto;
+			padding: 0;
+			position: relative;
+		}
+
+		.div_sub{
+			height: 200px;
+			width: 200px;
+			background-color: rgb(155,155,199);
+			position: absolute;
+		}
+
+	</STYLE>
+</HEAD>
+<BODY>
+	<DIV id="div" class="div_main">
+
+		<DIV id="sub_div" class="div_sub" onMouseOut="Move(this)" style="transition: .5s;">
+
+				BLAAAH
+				THIS IS A TEST
+		</DIV>
+		<SVG>
+			<circle id="test" class="div_sub" onClick="Move(this)" onMouseOver="Move(this)" cx="50" cy="50" r="20" fill="blue" stroke="pink"/>
+		</SVG>
+	</DIV>
+	<SCRIPT type="text/javascript">
+		function Hello(obj){
+			var elem = document.getElementById(obj.id);
+			//alert("What's up?");
+			elem.style['transition'] = 2.5+'s';
+			elem.style.opacity = .5;
+			if(parseInt(elem.style.getAttribute("stroke-width"))>2){
+				elem.style['stroke-width'] = 1;
+			} else {
+				elem.style['stroke-width'] = 20;
+			}
+			elem.style['top'] = 20+"px";
+
+			var div = document.getElementById("sub_div");
+			div.innerHTML = "elem.style;";
+
+		}
+
+		function Move(obj){
+			var elem = document.getElementById(obj.id);
+			var pos  = 0;
+			var id   = setInterval(frame, 25);
+
+			function frame(){
+				pos++;
+				elem.style['left']=pos+"px";
+				elem.style['top']=pos+"px";
+				if(pos==400){
+					clearInterval(id);
+				}
+			}
+
+			elem.style.bottom = 10+"px";
+		}
+	</SCRIPT>
+</BODY>
+</HTML>

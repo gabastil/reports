@@ -12,11 +12,12 @@ documentation read in as an XML or TXT file.
 
 import os
 import xml.etree.ElementTree as XML
+print os.getcwd(), "TEST'"
 
 class Report(object):
 
 	def __init__(self, report=None, section=None, stopwords="resources\stopwords.txt"):
-		print "test"
+		#print "test"
 
 		#self.__private = "test"
 
@@ -55,12 +56,22 @@ class Report(object):
 		# If the extension is xml, open with xml.xtree.ElementTree parser.
 		# Otherwise, open as a text file.
 		if extension=="xml":
-			print "It's an XML"
+			print "It's an XML {}\\{}".format(os.getcwd(), report)
+			#report = "{}\\{}".format(os.getcwd(), report)
 			tree = XML.parse(report)
 			self.__report_xml_root = tree.getroot()
 			#self.__report = tree.getroot()
+
+			#print "TEST", self.__report_xml_root
+
+			#TEST
+			for child in self.__report_xml_root:
+				print child.tag, child.attrib
+
 			self.focus(self.__report_section_of_interest)
 			self.__report_type = 1
+
+
 		else:
 			split = str.split
 			with open(report, 'r') as r:
@@ -68,7 +79,7 @@ class Report(object):
 				self.__report = [line.split() for line in opened_report.split('\n') if len(line) > 0]
 				self.__report_type = 0
 
-		print self.__report
+		#print self.__report
 		self.__refresh()
 
 	def __refresh(self):
@@ -148,7 +159,7 @@ class Report(object):
 
 
 if __name__=="__main__":
-	t = Report("resources/test.txt")
+	#t = Report("resources\\test.txt")
 	#print t.__report_tokens
 	#print t.__report_lines
 	#print t.__report_counts
@@ -158,19 +169,22 @@ if __name__=="__main__":
 	#print t.__report_lines
 	#print t.__report_counts
 	#print "len()", len(t)
-	print t.getReport()
-	print len(t)
+	#print t.getReport()
+	#print len(t)
 
-	k = Report("resources/health.xml", "HPI")
+	#k = Report("resources/health.xml", "HPI")
+	#os.chdir("H:/PROJECTS/Python/pyNCI/resources")
+	print os.getcwd()
+	k = Report("resources\\test2.xml")
 	#print dir(k.getReport().getchildren()[0].getchildren()[0])
 	#print k.report.getchildren()[0].get(1)
 	#print "k.private", k.getPrivate()
-	print len(k)
-	print "count()", k.count('the',0)
-	k.focus("PMH")
-	print k.getReport()
-	print len(k)
-	print ["the", "patient"].count("patient")
+	#print len(k)
+	#print "count()", k.count('the',0)
+	#k.focus("PMH")
+	#print k.getReport()
+	#print len(k)
+	#print ["the", "patient"].count("patient")
 
-	k.setSection("HPI")
-	print k.getReport(); print len(k); print "TYPE:", k.getType()
+	#k.setSection("HPI")
+	#print k.getReport(); print len(k); print "TYPE:", k.getType()

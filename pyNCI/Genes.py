@@ -22,6 +22,7 @@ from the Spreadsheet class.
 import os, sys, re
 sys.path.append("..")
 from pyDocs.Spreadsheet import Spreadsheet
+#print os.getcwd()
 
 class Genes(object):
 
@@ -47,27 +48,28 @@ class Genes(object):
 		the *.gene document.
 	"""
 
-	def __init__(self, filePath="resources\\genes\\genes_test.txt", regex=True):
+	def __init__(self, filePath="../../resources/biomarkers.gene", regex=True):
 		""" initalize class 
 			@param	filePath: path to .gene file containing gene specs
 			@param	regex: if True, use 'regex' column in the .gene file
 		"""
 		genes_spreadsheet = Spreadsheet(filePath)
 
+		gene_biomarker= genes_spreadsheet.getColumn("biomarker")
 		gene_names	  = genes_spreadsheet.getColumn("gene")
 		gene_variants = genes_spreadsheet.getColumn("variants")
-		gene_drugs	  = genes_spreadsheet.getColumn("related drugs")
-		gene_aminos	  = genes_spreadsheet.getColumn("amino acids")
+		gene_drugs	  = genes_spreadsheet.getColumn("drugs")
+		gene_aminos	  = genes_spreadsheet.getColumn("amino")
 
 		self.genes = dict()
 		self.drugs = dict()
 		self.amino = dict()
 
-		re_compile = re.compile
-
 		# If regex parameter is True, store the regex column
 		if regex:
 			gene_regexes = genes_spreadsheet.getColumn("regex")
+
+			re_compile = re.compile
 
 			# Loop through the gene names and add an entry for each name (variant names are assigned regexes as well)
 			for i in xrange(len(gene_names)):
@@ -97,10 +99,11 @@ class Genes(object):
 				amino 	 = ["{}-amino acid".format(amino_acid) for amino_acid in gene_aminos[i].split("; ") if len(amino_acid) > 0]
 
 				literal = r"({})|({})|({})".format(variants, drugs, "|".join(amino))
-				literal = re_compile(literal)
+				literal = re.compile(literal)
 
 				gene_drug  = re_compile(drugs)
 				gene_amino = re_compile("|".join(amino))
+
 
 				self.genes[gene_names[i]] = literal
 				self.drugs[gene_names[i]] = gene_drug
@@ -112,38 +115,28 @@ class Genes(object):
 					self.drugs[variant] = gene_drug
 					self.amino[variant] = gene_amino
 
-	def getGene(self, gene, regex=True):
+	def getGene(self, gene):
 		""" return regular expression for specified gene
 			@param	gene: gene or variant name
-			@param	regex: return a regular expression object if True,
-					otherwise, return String
 		"""
-		if regex:
-			return self.genes[gene]
-		return self.genes[gene].pattern
+		return self.genes[gene]
 
-	def getDrugs(self, gene, regex=True):
+	def getDrugs(self, gene):
 		""" return regular expression for drugs associated with specified gene
 			@param	gene: gene or variant name
-			@param	regex: return a regular expression object if True,
-					otherwise, return String
 		"""
-		if regex:
-			return self.drugs[gene]
-		return self.drugs[gene].pattern
+		return self.drugs[gene]
 
-	def getAmino(self, gene, regex=True):
+	def getAmino(self, gene):
 		""" return regular expression for amino acids associated with specified gene
 			@param	gene: gene or variant name
-			@param	regex: return a regular expression object if True,
-					otherwise, return String
 		"""
-		if regex:
-			return self.amino[gene]
-		return self.amino[gene].pattern
+		return self.amino[gene]
 
 if __name__=="__main__":
-	g = Genes(regex=1)
-	print g.getGene("v-Raf")
-	print g.getDrugs("v-Raf")
-	print g.getAmino("v-Raf")
+	print os.getcwd()
+
+	g = Genes(filePath=u"../../resources/biomarkers.gene", regex=1)
+	print g.getGene("HER-2")
+	print g.getDrugs("HER-2").pattern
+	print g.getAmino("HER-2").pattern

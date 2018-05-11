@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+	<STYLE type="text/css">
+
+	</STYLE>
+</HEAD>
+<BODY>
+	<SVG>
+		<circle x="10" y="50" r="20">
+	</SVG>
+</BODY>
+</HTML>

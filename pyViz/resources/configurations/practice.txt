@@ -1,0 +1,10 @@
+TITLE			Line Example
+TITLE LEGEND	Scores and Students
+X LABEL			Number of Students
+X RANGE			0 10
+Y LABEL			Test Scores
+Y RANGE			0 100
+LINE COLOR		Red
+LINE DASH		2 2
+LINE WIDTH		5
+
